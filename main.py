@@ -2,7 +2,7 @@ import os
 import torch
 import cv2
 import utils
-
+import argparse
 from torchvision.transforms import Compose
 from midas.mononet import MidasNet
 from midas.transform import Resize, NormalizeImage, PrepareForNet
@@ -75,15 +75,16 @@ def run(input_path, output_path, model_path):
     print("Finished Processing")
 
 if __name__ == "__main__":
-    # set paths
-    INPUT_PATH = "input"
-    OUTPUT_PATH = "output"
-    # MODEL_PATH = "model.pt"
-    MODEL_PATH = "model-f46da743.pt"
-    
+    # arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--input", help="path to input", default="./input")
+    parser.add_argument("-o", "--output", help="path to output", default="./output")
+    parser.add_argument("-m", "--model", help="path to model file", default="./model.pt")
+
+    args = parser.parse_args()
     # set torch options
     torch.backends.cudnn.enabled = True
     torch.backends.cudnn.benchmark = True
     
     # compute depth maps
-    run(INPUT_PATH, OUTPUT_PATH, MODEL_PATH)
+    run(args.input, args.output, args.model)
