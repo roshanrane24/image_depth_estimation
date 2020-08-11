@@ -1,2 +1,4 @@
+torch==1.6.0+cpu
 numpy==1.19.1
 opencv-python==4.3.0.36
+torchvision==0.7.0+cpu
